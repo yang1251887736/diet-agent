@@ -1,0 +1,25 @@
+[1/6] 检索 baseline …
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 4290.74it/s]
+      Top1=0.6714 MRR=0.6967
+[2/6] 检索 + Query Rewrite / + Rerank …（210 次 LLM 调用）
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights:   4%|▍         | 8/201 [00:00<00:02, 71.60it/s]Loading weights:  11%|█         | 22/201 [00:00<00:01, 106.12it/s]Loading weights:  19%|█▉        | 38/201 [00:00<00:01, 127.93it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 487.54it/s]
+      rewrite Top1=0.6667 | rewrite+rerank Top1=0.6571
+[3/6] 规划评测（6 请求 × 2 图）…
+[4/6] 意图分类准确率（19 条标注语句）…
+      准确率 1.0（19/19）
+[5/6] 端到端场景评测（3 场景 × 多轮对话）…
+      ✓ 多轮记忆：点菜→补忌口→诚实问答（10/10 检查点）
+      ✓ 喜好全链路：编排→菜单问答→编辑精确（9/9 检查点）
+      ✓ 中文约束 + 跨语言问答（6/6 检查点）
+[6/6] RAG 生成质量评测（n=30，RAGAS 风格三指标）…
+      qa 1/30 done      qa 2/30 done      qa 3/30 done      qa 4/30 done      qa 5/30 done      qa 6/30 done      qa 7/30 done      qa 8/30 done      qa 9/30 done      qa 10/30 done      qa 11/30 done      qa 12/30 done      qa 13/30 done      qa 14/30 done      qa 15/30 done      qa 16/30 done      qa 17/30 done      qa 18/30 done      qa 19/30 done      qa 20/30 done      qa 21/30 done      qa 22/30 done      qa 23/30 done      qa 24/30 done      qa 25/30 done      qa 26/30 done      qa 27/30 done      qa 28/30 done      qa 29/30 done      qa 30/30 done
+      忠实度=0.8667 答案相关性=0.6346 上下文相关性=0.4333
+
+已生成 E:\Study\Text_mining\LangChain\diet-agent\results\eval_report.md
+{
+  "n_req": 6,
+  "first_halluc_rate": 0.0,
+  "final_halluc_rate": 0.0,
+  "first_violation_rate": 0.0,
+  "final_ok_rate": 1.0
+}

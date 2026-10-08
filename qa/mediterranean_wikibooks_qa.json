@@ -1,0 +1,319 @@
+{
+  "sources": [
+    {
+      "source": "Wikibooks - Spain",
+      "questions": [
+        {
+          "question": "What are the primary ingredients in Gambas al Ajillo?",
+          "answer": "Gambas al ajillo is made primarily with shrimp, garlic, and olive oil. It is a popular Spanish dish found principally in the south and centre of Spain, often served in tapas bars as an appetiser."
+        },
+        {
+          "question": "What is Fabes con Almejas and where did it originate?",
+          "answer": "Fabes con almejas is a clam and bean stew that originated in the principality of Asturias in Spain in the 1800s as peasant fare. It is a lighter variation of Asturian fabada."
+        },
+        {
+          "question": "How is gazpacho traditionally served in Spain?",
+          "answer": "Gazpacho is a hearty soup that is served cold. Some Spaniards serve it in a glass as a beverage to accompany the meal. It is typically served along with the main course, or afterward."
+        },
+        {
+          "question": "What is Arroz Negro and what gives it its distinctive colour?",
+          "answer": "Arroz negro or arros negre means black rice in Spanish and Catalan respectively. It is a Valencian dish of cuttlefish or squid and rice, and its black colour comes from squid ink."
+        },
+        {
+          "question": "What is fabada asturiana and what are its main ingredients?",
+          "answer": "Fabada asturiana is a rich stew of large white beans, chorizo, morcilla (blood pudding), pork, ham or bacon, flavoured with onion, garlic, saffron and smoked paprika. It arises from the Principality of Asturias."
+        },
+        {
+          "question": "What is paella roja and how does it differ from Valencian paella?",
+          "answer": "Paella roja is a classic version of mixed paella in Spain (not including the Valencian region). The paella dish derives its name from the paellera, a flat round pan with two handles used to prepare it."
+        },
+        {
+          "question": "What is pisto and which Spanish region does it come from?",
+          "answer": "Pisto is a Spanish vegetable stew similar to ratatouille, made with tomatoes, courgettes, peppers, and onions cooked in olive oil. It is traditional to La Mancha and other Spanish regions."
+        },
+        {
+          "question": "What is alioli and what are its basic ingredients?",
+          "answer": "Alioli is a traditional Spanish garlic sauce made from garlic and olive oil emulsified together. It is closely related to aioli and is used throughout Catalan and Valencian cooking as a condiment."
+        },
+        {
+          "question": "What is tortilla española and what distinguishes it from a French omelette?",
+          "answer": "Tortilla española is a Spanish omelette made with eggs and potatoes, cooked in olive oil. Unlike a French omelette, it is thick, often flipped to cook both sides, and served at room temperature as a tapa."
+        },
+        {
+          "question": "What is churros and how is it typically consumed in Spain?",
+          "answer": "Churros are fried dough pastries made from choux-like dough piped into hot oil. In Spain they are typically eaten for breakfast or as a snack, dipped into thick hot chocolate."
+        }
+      ]
+    },
+    {
+      "source": "Wikibooks - Greece",
+      "questions": [
+        {
+          "question": "What is frappé coffee and where does it originate?",
+          "answer": "Frappé coffee is a refreshing cold drink of Greek origin made with instant coffee, cold water, and optionally sugar and milk, shaken until foamy."
+        },
+        {
+          "question": "What is spanakopita and what filling does it contain?",
+          "answer": "Spanakopita is a Greek spinach pie made with phyllo pastry. Its filling contains spinach, feta cheese, onion, egg, parsley, dill, and lemon juice."
+        },
+        {
+          "question": "What are the main layers in baklava according to Wikibooks?",
+          "answer": "Baklava is a Mediterranean dessert consisting of layers of phyllo dough interspersed with crushed nuts such as pistachios or walnuts, soaked in a sweet syrup made with sugar, water, honey, and lemon juice."
+        },
+        {
+          "question": "Why is lemon juice added to baklava syrup?",
+          "answer": "Lemon juice is added to baklava syrup as it keeps the syrup from crystallising while cooling."
+        },
+        {
+          "question": "What is meze and what is a typical Greek meze platter composed of?",
+          "answer": "Meze is a selection of small appetisers served with drinks at the beginning of a meal. A Greek meze platter typically includes dips, olives, cheese, and small savoury portions such as dolma and taramasalata."
+        },
+        {
+          "question": "What is tzatziki and what are its core ingredients according to Wikibooks?",
+          "answer": "Tzatziki is a Greek dip or sauce made from strained yoghurt mixed with cucumber, garlic, olive oil, and dill or mint. It is served as a meze or alongside grilled meats."
+        },
+        {
+          "question": "What is tirokafteri and what gives it its spiciness?",
+          "answer": "Tirokafteri (also called ktipiti) is a spicy Greek cheese dip made from feta cheese blended with roasted red peppers and chilli. The chilli or hot pepper gives it its characteristic heat."
+        },
+        {
+          "question": "What is dolmeh (stuffed vine leaves) and what is typically inside?",
+          "answer": "Stuffed vine leaves (dolmeh or sarma) are made by wrapping grape or vine leaves around a filling of seasoned rice, sometimes mixed with minced meat, herbs, onion, and lemon juice."
+        },
+        {
+          "question": "What is avgolemono and what gives it its distinctive flavour?",
+          "answer": "Avgolemono is a Greek egg and lemon sauce or soup. Its distinctive tangy, creamy flavour comes from the combination of beaten eggs and lemon juice whisked into a warm broth."
+        },
+        {
+          "question": "What is kataifi and how is it made?",
+          "answer": "Kataifi is a Greek and Middle Eastern pastry made from shredded filo dough wrapped around a nut filling and soaked in syrup. The shredded dough gives it a distinctive stringy, crispy texture."
+        }
+      ]
+    },
+    {
+      "source": "Wikibooks - Italy",
+      "questions": [
+        {
+          "question": "What is affogato and how is it served?",
+          "answer": "Affogato, or affogato al caffe, is an Italian preparation of gelato or ice cream topped with espresso. It is either served by pouring espresso over the gelato, or both are presented side by side for the diner to mix."
+        },
+        {
+          "question": "What is bruschetta and how is it traditionally prepared?",
+          "answer": "Bruschetta is a popular Italian appetiser of toasted or grilled bread rubbed with garlic, drizzled with olive oil, and seasoned with salt and pepper. It is frequently topped with seasonal ingredients such as tomatoes and mozzarella."
+        },
+        {
+          "question": "What gives tiramisu mousse its distinctive flavour profile?",
+          "answer": "Tiramisu mousse derives its flavour from mascarpone cheese, granulated sugar, espresso, egg yolks, and whipped cream, dusted with cocoa powder."
+        },
+        {
+          "question": "What type of pasta is agnolotti and how is it typically served?",
+          "answer": "Agnolotti are small ravioli filled most commonly with meat. They are typically served in brodo (broth) as agnolotti in brodo."
+        },
+        {
+          "question": "What is pesto and what are its classic ingredients?",
+          "answer": "Classic basil pesto (pesto genovese) is made from fresh basil leaves, garlic, pine nuts, Parmesan cheese, Pecorino cheese, and olive oil, traditionally ground together in a mortar and pestle."
+        },
+        {
+          "question": "What is ribollita and what makes it distinctive among Italian soups?",
+          "answer": "Ribollita is a hearty Tuscan bread soup made with leftover minestrone or vegetable soup that is re-boiled (ribollita means re-boiled) with stale bread, giving it a thick, filling texture."
+        },
+        {
+          "question": "What is ossobuco and with which Italian side dish is it classically served?",
+          "answer": "Ossobuco is a Milanese braised veal shank dish cooked with white wine, broth, and vegetables. It is classically served with risotto alla Milanese, which is flavoured and coloured with saffron."
+        },
+        {
+          "question": "What is focaccia and how does it differ from pizza dough?",
+          "answer": "Focaccia is a flat Italian bread made with flour, water, yeast, olive oil, and salt. Unlike pizza dough, focaccia is thicker, oilier, and typically eaten on its own or with toppings such as olives, rosemary, or sea salt rather than tomato and cheese."
+        },
+        {
+          "question": "What is carbonara and what are its traditional ingredients?",
+          "answer": "Pasta carbonara is a Roman pasta dish made with eggs, hard cheese (Pecorino Romano or Parmesan), cured pork (guanciale or pancetta), and black pepper. No cream is used in the traditional recipe."
+        },
+        {
+          "question": "What is minestrone and what vegetables does it typically contain?",
+          "answer": "Minestrone is a hearty Italian vegetable soup that typically contains seasonal vegetables such as carrots, celery, onion, tomatoes, courgettes, and beans, usually with pasta or rice added."
+        }
+      ]
+    },
+    {
+      "source": "Wikibooks - Cyprus",
+      "questions": [
+        {
+          "question": "What is baba ganoush and what gives it its smoky flavour?",
+          "answer": "Baba ganoush is a common Middle Eastern and Mediterranean dip with a creamy, somewhat smoky flavour. Its smokiness comes from roasting the eggplant. It is made with eggplant, raw tahini, lemon or lime juice, and garlic, usually eaten with pita bread."
+        },
+        {
+          "question": "What is moutabbal and how does it differ from baba ganoush?",
+          "answer": "Moutabbal (also called baba ghanouzh) is an eggplant and tahini dip made by roasting eggplant, then mixing with tahini, lemon juice, garlic, and salt. It is very similar to baba ganoush, though moutabbal typically uses more tahini."
+        },
+        {
+          "question": "What is a traditional Cypriot salad and what ingredients does it contain?",
+          "answer": "A traditional Cypriot salad (choriatiki salata) contains tomato, cucumber, lettuce, onion, feta cheese, black olives, olive oil, and vinegar. It is a salad that can be served with most foods in Cyprus."
+        },
+        {
+          "question": "What is arjoli and from which country does it originate?",
+          "answer": "Arjoli (also spelled Ajjoli) is a Maltese dip or spread typically held together with bread. It is made with fresh basil, mint, parsley, garlic, and olive oil served on Maltese galletti (round hard biscuits)."
+        },
+        {
+          "question": "What is stuffed grape leaves and in which countries is it popular?",
+          "answer": "Stuffed grape leaves (dolmeh or warak dawali) are an appetiser popular in Middle Eastern countries including Turkey and Persia. Grape leaves are wrapped around a filling of seasoned rice and spices."
+        },
+        {
+          "question": "What is pita bread and which cuisines use it?",
+          "answer": "Pita is a yeasted wheat flatbread originating from North African, Middle Eastern, and Mediterranean cuisines. It is usually eaten with sauces, dips, and fillings. Dishes that use pita include kebab, gyros, and shawarma."
+        },
+        {
+          "question": "What is Mediterranean beef stew and what ingredient makes it distinctive?",
+          "answer": "Mediterranean beef stew is a hearty and flavoursome beef stew inspired by Mediterranean cooking. Olives make it a filling meal and give it its distinctive Mediterranean character."
+        },
+        {
+          "question": "What is musakhan and what are its main ingredients?",
+          "answer": "Musakhan is a Palestinian country dish of chicken baked with onions, sumac, and allspice, garnished with fried pine nuts. It is typically served on flatbread."
+        },
+        {
+          "question": "What is halloumi and why can it be grilled without melting?",
+          "answer": "Halloumi is a semi-hard white-brined cheese from Cyprus traditionally made from a mixture of goat and sheep milk. Its very high melting point, resulting from its low acidity and whey-pressing process, allows it to be grilled or fried without losing its shape."
+        },
+        {
+          "question": "What is kleftiko and how is it traditionally cooked in Cyprus?",
+          "answer": "Kleftiko is a slow-cooked Cypriot lamb dish. The meat is marinated with lemon juice, garlic, and herbs, then wrapped in parchment or foil and baked slowly for several hours until extremely tender."
+        }
+      ]
+    },
+    {
+      "source": "Wikibooks - Morocco",
+      "questions": [
+        {
+          "question": "What liquid is used to cook couscous in the Moroccan Wikibooks recipe?",
+          "answer": "The Moroccan couscous recipe uses chicken broth combined with freshly squeezed lemon juice, hot pepper paste, and spices including coriander and cumin."
+        },
+        {
+          "question": "What are the main ingredients in a Moroccan salad?",
+          "answer": "A Moroccan salad is made from ripe tomatoes, green bell pepper, onion, fresh coriander, ground cumin, salt, black pepper, and vinegar or lemon juice."
+        },
+        {
+          "question": "What are liver kebabs served with in Moroccan cuisine?",
+          "answer": "Moroccan liver kebabs are served with fresh bread and Moroccan salad. In Morocco every home has a shallow round clay pot filled with charcoal for cooking such dishes."
+        },
+        {
+          "question": "What is Moroccan soup (chorba) and what are its key ingredients?",
+          "answer": "Moroccan soup is made with diced onion, lamb meat or chicken, broth, olive oil, diced tomatoes, dried apricots, paprika, ground coriander, and cinnamon. The apricots give it a distinctive sweet and savoury character."
+        },
+        {
+          "question": "What are preserved lemons and how are they made?",
+          "answer": "Preserved lemons are a common flavouring agent in Moroccan cuisine, particularly in tagines. They are made by cutting lemons, packing them tightly with salt, and leaving them to cure over several weeks until the rind softens and becomes intensely flavourful."
+        },
+        {
+          "question": "What is a tagine and what role do preserved lemons play in it?",
+          "answer": "A tagine is a slow-braised Moroccan dish named after the conical earthenware pot it is cooked in. Preserved lemons are a common flavouring agent in tagines, adding a salty, tangy citrus depth to the stew."
+        },
+        {
+          "question": "What is chermoula and what is it used for in Moroccan cooking?",
+          "answer": "Chermoula is a Moroccan marinade and relish made from herbs, garlic, lemon juice, olive oil, and spices such as cumin and paprika. It is traditionally used to flavour fish or seafood but can be used on other meats or vegetables."
+        },
+        {
+          "question": "What is bastilla and what combination of flavours makes it unusual?",
+          "answer": "Bastilla is a Moroccan savoury pie made with pigeon or chicken, almonds, and eggs, wrapped in thin warqa pastry. It is unusual because it combines sweet and savoury flavours, being dusted with cinnamon and powdered sugar on top."
+        },
+        {
+          "question": "What is harira and when is it traditionally consumed in Morocco?",
+          "answer": "Harira is a Moroccan tomato-based soup with lentils, chickpeas, fresh coriander, and herbs. It is traditionally eaten to break the fast during Ramadan."
+        },
+        {
+          "question": "What is msemmen and how is it prepared?",
+          "answer": "Msemmen is a Moroccan flatbread made from semolina and flour dough that is folded and flattened multiple times to create a layered, flaky texture, then pan-fried. It is typically served with honey and butter for breakfast or tea."
+        }
+      ]
+    },
+    {
+      "source": "Wikibooks - Turkey",
+      "questions": [
+        {
+          "question": "What is ayran and what is it typically served with in Turkey?",
+          "answer": "Ayran is a popular Turkish drink made of yoghurt and water, with salt usually added for flavour. It is served cool and usually accompanies doner, kebab, or pastry."
+        },
+        {
+          "question": "What nuts are used in Turkish baklava with pistachio nuts?",
+          "answer": "Turkish baklava with pistachio nuts uses 1.5 pounds of pistachio nuts mixed with cinnamon powder as the nut filling, layered between phyllo dough and soaked in a syrup of sugar, water, honey, cinnamon sticks, and lemon juice."
+        },
+        {
+          "question": "Why is lemon juice important in Turkish baklava syrup?",
+          "answer": "Lemon juice is an important ingredient in the baklava syrup as it keeps it from crystallising while cooling."
+        },
+        {
+          "question": "What is dolma and what is typically used as the wrapping?",
+          "answer": "Dolma is a Turkish stuffed dish where fillings such as seasoned rice or meat mixtures are wrapped in grape leaves or hollowed-out vegetables such as peppers, tomatoes, or courgettes."
+        },
+        {
+          "question": "What is Turkish lentil soup (mercimek corbasi) made from?",
+          "answer": "Turkish red lentil soup is made from red lentils, onion, carrot, olive oil, tomato paste, cumin, and paprika, blended smooth and served with lemon wedges and dried mint."
+        },
+        {
+          "question": "What is lahmacun and how is it different from pizza?",
+          "answer": "Lahmacun is a thin round Turkish flatbread topped with a minced meat mixture of lamb or beef, onions, tomatoes, and spices. Unlike pizza, it has no cheese and the dough is much thinner and crispier."
+        },
+        {
+          "question": "What is gözleme and how is the dough traditionally made?",
+          "answer": "Gözleme is a savoury Turkish stuffed flatbread. The dough is usually unleavened, made only with flour, salt, and water, rolled thin, filled with ingredients such as spinach and feta or minced meat, then sealed and cooked on a griddle."
+        },
+        {
+          "question": "What is manti and what cuisines feature it?",
+          "answer": "Manti is a type of dumpling found mainly in Turkish cuisine, Armenian cuisine, and Central Asian cuisine. The dumplings typically consist of a spiced meat mixture, usually lamb or ground beef, wrapped in thin dough and served with yoghurt and butter sauce."
+        },
+        {
+          "question": "What is beef and vegetable kabob and what cut of meat is used?",
+          "answer": "Beef and vegetable kabobs are made with beef sirloin cut into cubes, seasoned with smoked paprika, kosher salt, and black pepper, then skewered and grilled with vegetables."
+        },
+        {
+          "question": "What is imam bayildi and what does its name mean?",
+          "answer": "Imam bayildi is a Turkish dish of whole baked eggplant stuffed with onions, garlic, tomatoes, and capsicum, then simmered in generous amounts of olive oil. The name literally means the imam fainted, with one legend saying the imam swooned from the delicious taste, another that he fainted at the cost of the olive oil."
+        }
+      ]
+    },
+    {
+      "source": "Wikibooks - Lebanon",
+      "questions": [
+        {
+          "question": "What is mjeddrah and what are its main ingredients?",
+          "answer": "Mjeddrah is a stout lentil and rice stew that is a Lebanese staple. It is made with brown lentils, long grain brown rice, onion, olive oil, and cumin."
+        },
+        {
+          "question": "What is the garlic sauce toom and what is it made from?",
+          "answer": "Toom is a Lebanese garlic sauce made from garlic, olive oil, lemon juice, and salt. It is served alongside garlic lemon chicken."
+        },
+        {
+          "question": "What is sayyadieh and how is it prepared?",
+          "answer": "Sayyadieh (Rice in Fish Broth) is a Lebanese dish. A whole fish is fried in olive oil, deboned, then chopped onions are fried in the same oil and rice is cooked in the fish broth. The fish fillets are served on top of the rice."
+        },
+        {
+          "question": "What spices season Lebanese garlic lemon chicken?",
+          "answer": "Lebanese garlic lemon chicken is seasoned with garlic, lemon juice, salt, pepper, basil, and cayenne pepper."
+        },
+        {
+          "question": "What is mujaddara and how does it compare to mjeddrah?",
+          "answer": "Mujaddara and mjeddrah are both Lebanese lentil and rice dishes. Mujaddara typically features caramelised or crispy fried onions on top, while mjeddrah is a stout stew with the onions cooked into the dish."
+        },
+        {
+          "question": "What is fattoush and what distinguishes it from other Levantine salads?",
+          "answer": "Fattoush is a Levantine salad made from toasted or fried pieces of pita bread combined with mixed greens and vegetables such as radishes, cucumber, and tomatoes. The crispy pita pieces are its distinguishing feature."
+        },
+        {
+          "question": "What is hummus and what are its basic ingredients?",
+          "answer": "Hummus is a creamy dip or spread made from cooked, mashed chickpeas blended with tahini, lemon juice, garlic, and olive oil. It is a staple food in Lebanese and broader Middle Eastern cuisine."
+        },
+        {
+          "question": "What is falafel and from what is it made in Lebanese cuisine?",
+          "answer": "Falafel is a deep-fried ball or patty made from ground fava beans or chickpeas mixed with herbs and spices. In Lebanese cuisine it is commonly served in a pita wrap with vegetables and tahini sauce."
+        },
+        {
+          "question": "What is kibbeh and why is it considered Lebanon's national dish?",
+          "answer": "Kibbeh is a dish of spiced lean ground meat (usually lamb) and bulgur wheat. It is considered a national dish of Lebanon and Syria due to its cultural ubiquity and the skill required to prepare it traditionally."
+        },
+        {
+          "question": "What is tabbouleh and what are its primary ingredients?",
+          "answer": "Tabbouleh is a Levantine salad of finely chopped parsley, soaked bulgur wheat, tomatoes, mint, and onion, seasoned with olive oil, lemon juice, and salt. It is a staple of Lebanese cuisine."
+        }
+      ]
+    }
+  ]
+}

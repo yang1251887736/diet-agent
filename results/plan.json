@@ -1,0 +1,21 @@
+{
+  "days": [
+    {
+      "meals": [
+        {
+          "dish_id": "dish_0560",
+          "slot": "breakfast"
+        },
+        {
+          "dish_id": "dish_0423",
+          "slot": "lunch"
+        },
+        {
+          "dish_id": "dish_0455",
+          "slot": "dinner"
+        }
+      ]
+    }
+  ],
+  "rationale": "All three meals center on chicken to satisfy the user's stated like, with no dietary restrictions or dislikes to work around. Breakfast uses Mediterranean Green Chicken (herby parsley-garlic-lemon), lunch features Greek-Style Grilled Chicken (oregano, thyme, mint), and dinner is Chicken Cacciatore (tomato-mushroom braise), giving three distinct preparations and cuisines (Cypriot, Greek, Italian) so nothing repeats. The dishes are all Mediterranean-style and avoid chili/spicy elements, aligning with the user's long-term preference history."
+}
