@@ -26,7 +26,7 @@ from langgraph.graph import StateGraph, END
 
 from config import (DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL,
                     TOP_K, MAX_RETRIES, SUMMARY_CHARS,
-                    USE_REWRITE, USE_RERANK, MIN_POOL, RESULTS_DIR)
+                    USE_REWRITE, USE_RERANK, RESULTS_DIR)
 from rag import retrieve_v2
 from tools import lookup_dish, check_constraints
 from data.constraints import normalize_prefs, normalize_dislikes
@@ -35,7 +35,7 @@ from user_profile import build_hint
 import store
 
 
-class DietState(TypedDict):
+class DietState(TypedDict):  # 节点间共享的运行态：一次 invoke 内有效；跨轮/跨会话持久化见 store.py
     user_request: str
     diet_prefs: list
     dislikes: list
@@ -43,7 +43,7 @@ class DietState(TypedDict):
     intent: str           # new_plan / edit / replan / qa / plan_qa / chat
     memory_hint: str      # 长期记忆注入的偏好提示
     candidate_pool: list
-    coverage: str          # 语料覆盖分级 A/B/C（A 充足 / B 有限 / C 无匹配）
+    coverage: str          # 可满足度分级 A/B/C（A 够填满 / B 不够但>0 / C 空）
     plan: dict
     plan_zh: dict          # 中文展示层（翻译节点输出，只进展示不进校验链）
     rationale_zh: str      # 安排理由的中文版（planner 产出 rationale，翻译节点转译）
@@ -58,7 +58,17 @@ class DietState(TypedDict):
 TOKEN_STATS = STATS     # 供 run_cli / evaluate 读取
 
 
-def understand_node(state: DietState) -> dict:
+def understand_node(state: DietState) -> dict: # 6个意图，4个专家
+    '''
+    | 角色                   | 负责什么        | 对应代码                              |
+| -------------------- | ----------- | --------------------------------- |
+| 🧭 **Intent Router** | 判断用户想干什么    | `understand_node` / `_understand` |
+| 🍱 **规划专家**          | 新建饮食计划、重新规划 | `planner_node`                    |
+| ✏️ **编辑专家**          | 修改已有计划      | `planner_node` + `_merge_edit()`  |
+| 🔍 **知识问答专家**        | 查询食物/饮食知识   | `qa_node`                         |
+| 💬 **计划问答专家**        | 针对当前计划回答问题  | `plan_qa_node`                    |
+
+    '''
     """理解节点（多轮对话唯一入口）：一次 LLM 调用同时完成意图分类 + 约束抽取。
 
     六路意图（路由到四个专家节点）：
@@ -78,19 +88,26 @@ def understand_node(state: DietState) -> dict:
         return {"intent": "edit"}   # CLI 强制编辑入口，跳过理解
     latest = store.latest_run()
     u = _understand(state["user_request"], has_history=latest is not None)
+    # 第一件：判断用户属于哪个 intent
     intent = u.get("intent", "new_plan")
-    prefs = normalize_prefs(u.get("diet_prefs") or [])
-    dislikes = normalize_dislikes(u.get("dislikes") or [])
-    likes = [w for w in (u.get("likes") or []) if w]
+    # 第二件：提取用户的饮食条件
+    prefs = normalize_prefs(u.get("diet_prefs") or []) # 必须
+    dislikes = normalize_dislikes(u.get("dislikes") or []) # 必须避免
+    likes = [w for w in (u.get("likes") or []) if w] # 尽量多给
+    # 更新state
     out = {"intent": intent,
            "diet_prefs": prefs or state.get("diet_prefs") or [],
            "dislikes": dislikes or state.get("dislikes") or [],
            "likes": likes}
+
+    # 喜好延续
     if intent in ("edit", "replan") and latest:
         # 喜好跨轮延续：编辑/重规划时把历史喜好带上（"别老吃柠檬鸡"暗含
         # "还是爱吃鸡"，不能因为这句话没提鸡就把喜好丢了）
         out["likes"] = list(dict.fromkeys(
             (latest.get("likes") or []) + likes))
+    # 菜单延续
+    # edit是改菜单的结构/具体位置，replan是增加/改变饮食约束，然后重新规划整个菜单
     if intent == "edit":
         if latest:
             out["prev_plan"] = latest["plan"]
@@ -117,6 +134,12 @@ def understand_node(state: DietState) -> dict:
 
 
 def _understand(request: str, has_history: bool) -> dict:
+    '''LLM要干的四件事
+    ① intent classification
+    ② diet_prefs extraction
+    ③ dislikes extraction
+    ④ likes extraction
+    '''
     try:
         llm = ChatOpenAI(model=DEEPSEEK_MODEL, api_key=DEEPSEEK_API_KEY,
                          base_url=DEEPSEEK_BASE_URL, temperature=0)
@@ -157,12 +180,41 @@ PREF_QUERY_TPL = {
     "pescatarian": "Mediterranean fish and seafood dishes",
     "halal": "halal-friendly Mediterranean dishes without pork and alcohol",
 }
+# 先从数据库/RAG 里尽量召回 40 个候选，然后进行过滤
 POOL_MAX = 15          # 过滤后候选池上限（太多会撑爆 planner prompt）
 POOL_RAW_K = 40        # 过滤前的召回量（过滤会砍掉一部分，得留余量）
 
+# 每天必须齐的餐位：结构校验与"可满足度"分级共用这一张表，
+# 避免"3 餐"这个数字在两处各写一遍（同一事实只能有一个来源）。
+REQUIRED_SLOTS = ("breakfast", "lunch", "dinner")
 
+
+def _required_slots(state: DietState) -> int:
+    """本次请求需要填满的餐位数 = 天数 × 每天餐数。
+
+    这是"可满足度"分级的**唯一口径**，回答的是"池子这点菜够不够填满"，
+    而不是"语料里有多少相关内容"。阈值随天数动态变化——1 天的 3 餐位与
+    3 天的 9 餐位不是一个标准，固定阈值做不到这件事。
+
+    改造前：分级用固定 4 判定，去重检查另用 len(pool) >= days*3 判定，
+    空池保护再另用 not candidate_pool 判定——同一个"够不够"被三种口径
+    各判一遍。现在统一到这里，coverage 成为唯一的可满足度信号。
+
+    编辑模式的天数取**既有计划**的天数：改单指令多半不提天数
+    （"把第2天晚餐换成鱼"），若按 _extract_days 落回默认 3 天，会把
+    2 天计划的编辑误判成"池子不够"。
+    """
+    prev = state.get("prev_plan") or {}
+    if state.get("edit_instruction") and prev.get("days"):
+        days = len(prev["days"])
+    else:
+        days = state.get("plan_days") or _extract_days(state["user_request"])
+    return (days or 3) * len(REQUIRED_SLOTS)
+
+
+# 给planner找菜库
 def retrieve_node(state: DietState) -> dict:
-    """多路检索 → 按 dish 去重 → 约束过滤 → 候选池 + 覆盖分级（池子全程稳定）。
+    """多路检索 → 按 dish 去重 → 约束过滤 → 候选池 + 可满足度分级（池子全程稳定）。
 
     两个教训（都来自真实翻车）：
     - 约束过滤必须在检索层：曾出现"素食请求、候选池全是海鲜"——
@@ -184,6 +236,7 @@ def retrieve_node(state: DietState) -> dict:
     queries += [f"{lk} dishes, Mediterranean cuisine" for lk in likes]
     queries.append(state["user_request"])
     raw_k = POOL_RAW_K if (prefs or dislikes or likes) else TOP_K
+    # 按 ID 去重 + 按菜名去重
     pool, seen, seen_names = [], set(), set()
     for q in queries:
         hits = retrieve_v2(q, k=raw_k, use_rewrite=USE_REWRITE, use_rerank=USE_RERANK)
@@ -197,6 +250,7 @@ def retrieve_node(state: DietState) -> dict:
             info = lookup_dish.invoke({"dish_id": did})   # 与 validate_node 同一文本源
             if "error" in info:
                 continue
+            # 这道菜到底合不合用户要求
             r = check_constraints.invoke({
                 "dish_text": f"{info['dish']} {info['summary']}",
                 "diet_prefs": prefs, "dislikes": dislikes,
@@ -211,7 +265,13 @@ def retrieve_node(state: DietState) -> dict:
             })
     if state.get("edit_instruction") and state.get("prev_plan"):
         pool = _merge_prev_plan_pool(pool, seen, state["prev_plan"])
-    coverage = "A" if len(pool) >= MIN_POOL else ("B" if pool else "C")
+    # 可满足度分级（**不是**语料覆盖度）：判"这点菜够不够填满本次请求"，
+    # 阈值 = 天数 × 每餐数，随请求动态变化。
+    #   A 够填满        → 去重检查开启，prompt 要求不重复
+    #   B 不够但 > 0    → 去重检查关闭，prompt 允许重复（重复是必然的）
+    #   C 空            → 命令输出空计划（宁可没有，也不编菜名）
+    needed = _required_slots(state)
+    coverage = "A" if len(pool) >= needed else ("B" if pool else "C")
     return {"candidate_pool": pool, "coverage": coverage}
 
 
@@ -253,6 +313,27 @@ def _llm_invoke_retry(llm, messages, attempts: int = 3):
 
 
 def planner_node(state: DietState) -> dict:
+    '''
+    Planner LLM
+    ↓
+    我要查一下这道菜”
+    ↓
+    tool_call
+    ↓
+    lookup_dish
+    ↓
+    返回菜品信息
+    ↓
+    Planner LLM
+    ↓
+    继续思考
+    ↓
+    可能再查
+    ↓
+    最多4轮
+    ↓
+    最终输出 JSON
+    '''
     llm = _planner_llm()
     messages = _planner_messages(state)
     resp = _llm_invoke_retry(llm, messages)
@@ -293,7 +374,7 @@ def validate_node(state: DietState) -> dict:
 
     # ③ 结构完整性：天数够不够、每天三餐齐不齐
     required_days = _extract_days(state["user_request"])
-    required_slots = {"breakfast", "lunch", "dinner"}
+    required_slots = set(REQUIRED_SLOTS)
     if len(days) < required_days:
         issues.append(f"Plan has only {len(days)} day(s); {required_days} required. Add the missing days.")
     for di, day in enumerate(days, 1):
@@ -303,10 +384,10 @@ def validate_node(state: DietState) -> dict:
             issues.append(f"Day {di} is missing meals: {', '.join(sorted(missing))}. Add them.")
 
     # ④ 跨天重复（条件启用）：planner 曾一边喊着"不重复"一边把柠檬鸡排了两天。
-    # 只在池子足够大（>= 总餐位数）时检查——小池子本来就得重复，检查只会
-    # 白烧 3 轮回流。满足条件下重复才算 issue，打回重排。
-    total_slots = len(days) * len(required_slots)
-    if len(state["candidate_pool"]) >= total_slots and len(days) >= 2:
+    # 只在 coverage == "A"（池子够填满本次请求）时检查 —— 这是可满足度分级的
+    # 第二处消费：池子不够时重复是必然的，再查它就是让 planner 怎么改都过不了，
+    # 只白烧 3 轮回流。判据统一走 coverage，不再在本地重算一遍总餐位数。
+    if state.get("coverage") == "A" and len(days) >= 2:
         usage = {}
         for di, day in enumerate(days, 1):
             for meal in day.get("meals", []):
@@ -565,15 +646,30 @@ def _planner_messages(state: DietState) -> list:
                 "and EVERY day must have all 3 meals (breakfast, lunch, dinner). "
                 "Never leave a day or a meal empty.")
 
+    # 规则 3（多样性）随可满足度分级松绑：池子够填满时才要求"不重复"；
+    # 池子不够时"不重复"物理上做不到，硬要求只会把模型逼去编池外 ID。
+    # 这是可满足度分级的第三处消费——"该松的地方用 prompt 松"的落点。
+    cov = state.get("coverage")
+    if cov == "A":
+        rule3 = ("3. The user's LIKES are a positive requirement: actively include dishes "
+                 "matching them, spread across days, and VARY the preparations — never "
+                 "repeat the same dish on more than one day.\n")
+    elif cov == "B":
+        rule3 = ("3. The user's LIKES are a positive requirement: actively include dishes "
+                 "matching them. The pool is too small to avoid repetition, so reusing the "
+                 "same dish across days is ALLOWED here — never invent ids outside the pool "
+                 "just to add variety.\n")
+    else:
+        rule3 = ("3. The candidate pool is EMPTY: there is nothing to include. Follow the "
+                 "empty-plan instruction below.\n")
+
     system = (
         "You are a Mediterranean diet meal planner.\n"
         f"{task}\n"
         "STRICT RULES:\n"
         "1. Use ONLY dish_id values from the candidate pool. Any other id is INVALID.\n"
         "2. Respect the dietary preferences and dislikes strictly.\n"
-        "3. The user's LIKES are a positive requirement: actively include dishes "
-        "matching them, spread across days, and VARY the preparations — never repeat "
-        "the same dish on more than one day.\n"
+        f"{rule3}"
         "4. If unsure about a dish, call the lookup_dish tool to check the corpus.\n"
         '5. Final answer = STRICT JSON only, no markdown, exact schema:\n'
         '{"days": [{"meals": [{"dish_id": "...", "slot": "breakfast|lunch|dinner"}]}], '
@@ -593,7 +689,9 @@ def _planner_messages(state: DietState) -> list:
                  + json.dumps(state["prev_plan"], ensure_ascii=False)
                  + f"\n\nEdit instruction: {state['edit_instruction']}")
     if state.get("coverage") == "B":
-        user += "\n\nNote: corpus coverage for this request is limited; choose the best matches from the pool."
+        user += ("\n\nNote: the candidate pool CANNOT fill every meal without repetition. "
+                 "Reusing the same dish across days is expected and allowed here — spread the "
+                 "few compliant dishes you have, and never invent ids outside the pool.")
     if not state["candidate_pool"]:
         user += '\n\nThe candidate pool is EMPTY. Respond with {"days": []} and nothing else.'
     if state.get("validation", {}).get("issues"):

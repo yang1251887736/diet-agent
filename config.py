@@ -38,7 +38,6 @@ CACHE_TTL = 3600        # rerank 结果缓存秒数（进程内 TTL，替代 Red
 
 # ── Agent 参数 ──────────────────────────────────────────
 TOP_K = 12                # 最终进入候选池的 chunk 数
-MIN_POOL = 4              # 候选池覆盖分级阈值：>=4 为 A，1~3 为 B，0 为 C
 MAX_RETRIES = 3           # validate → planner 回流步数上限（防死循环）
 SUMMARY_CHARS = 400       # 候选池里每道菜的描述截断长度
 RESULTS_DIR = Path(__file__).parent / "results"
